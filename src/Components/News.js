@@ -10,11 +10,12 @@ export class News extends Component {
     this.state = {
       articles: [],
       loading: false,
-      page:1
+      page:1,
+      category: "general"
     };
   }
   async componentDidMount(){
-    let url  = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=c2ba400e716e4522addcb61d1e7ae417&page=1&pageSize=${this.props.pageSize}`
+    let url  = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c2ba400e716e4522addcb61d1e7ae417&page=1&pageSize=${this.props.pageSize}`
     this.setState({loading:true})
     let data =  await fetch(url)
     let parseData = await data.json()
@@ -26,7 +27,7 @@ export class News extends Component {
   }
     handleNextClick = async()=> {
         if(!(this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize))){
-        let url  = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=c2ba400e716e4522addcb61d1e7ae417&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
+        let url  = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c2ba400e716e4522addcb61d1e7ae417&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
         this.setState({loading:true})
         let data =  await fetch(url)
         let parseData = await data.json()
@@ -39,7 +40,7 @@ export class News extends Component {
 }
   }
   handlePrevClick = async()=> {
-    let url  = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=c2ba400e716e4522addcb61d1e7ae417&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
+    let url  = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c2ba400e716e4522addcb61d1e7ae417&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
     this.setState({loading:true})
     let data =  await fetch(url)
     let parseData = await data.json()
@@ -53,7 +54,7 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3">
-        <h1 className="text-center">NewsUpdater--Top HeadLines</h1>
+        <h1 className="text-center" style={{margin:"35px"}}>NewsUpdater--Top HeadLines</h1>
        { this.state.loading && <Spinner/>}
         <div className="row">
           {!this.state.loading && this.state.articles.map((e) => {
