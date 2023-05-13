@@ -13,7 +13,7 @@ export class NewItem extends Component {
             <p className="card-text">
              {description}...
             </p>
-            <p className="card-text"><small className="text-muted">By {!author? "Unkown": author} on {new Date(date).toGMTString()}</small></p>
+            <p className="card-text"><small className="text-danger">By {!author? "Unkown": author} on {new Date(date).toGMTString()}</small></p>
             {/* use target="_blank" for redirect the that perticular news which we have choosen */}
             <a href={newsUrl} target="_blank" className="btn btn-sm btn-dark">             
                 Read more
