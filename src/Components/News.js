@@ -5,14 +5,19 @@ import PropTypes from "prop-types";
 
 export class News extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       articles: [],
-      loading: false,
+      loading: true,
       page: 1,
       category: "general",
     };
+    document.title = `${this.capitalizeFirstLetter(this.props.category)} - NewsApp`
   }
+ capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
   async updateNews() {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c2ba400e716e4522addcb61d1e7ae417&page=1&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
@@ -40,7 +45,7 @@ export class News extends Component {
     return (
       <div className="container my-3">
         <h1 className="text-center" style={{ margin: "35px" }}>
-          NewsUpdater--Top HeadLines
+          NewsUpdater--Top {this.capitalizeFirstLetter(this.props.category)} HeadLines  
         </h1>
         {this.state.loading && <Spinner />}
         <div className="row">
