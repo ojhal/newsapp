@@ -22,9 +22,13 @@ const  News = (props) => {
     setLoading(false)
     props.setProgress(100);
   }
+  const  capitalizeFirstLetter =(string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
   useEffect(()=>
   {
+    document.title = `${capitalizeFirstLetter(props.category)} - News`
     updateNews();
   },[])
   // handleNextClick = async () => {
@@ -41,8 +45,8 @@ const  News = (props) => {
     setLoading(true);
     let data = await fetch(url);
     let parseData = await data.json();
-    console.log("🚀 ~ file: News.js:49 ~ News ~ fetchMoreData= ~ parseData:", parseData)
-    console.log("=>", parseData);
+    // console.log("🚀 ~ file: News.js:49 ~ News ~ fetchMoreData= ~ parseData:", parseData)
+    // console.log("=>", parseData);
     setArticles(articles.concat(parseData.articles))
     setTotalResults(parseData.totalResults)
     setLoading(false)
@@ -51,7 +55,7 @@ const  News = (props) => {
     return (
       <div className="container my-3">
         <h1 className="text-center" style={{ margin: "35px",marginTop:"90px" }}>
-          NewsUpdater--Top HeadLines
+          NewsUpdater--Top {capitalizeFirstLetter(props.category)} HeadLines  
         </h1>
         {loading && <Spinner />}
         <InfiniteScroll
